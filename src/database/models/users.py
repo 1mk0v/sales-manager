@@ -18,6 +18,15 @@ class User():
         conn.fetchrow("""SELECT * FROM user_auth as where id = $1""", self.id)
 
 
+class UserSessionsManager():
+
+    def __init__(self, userId:int) -> None:
+        self.userId = userId
+    
+    async def getCurrentUserSession():
+        pass
+
+
 class UserAuth():
     def __init__(self, login:str, passwordHash:str, userId:int):
         self.login = login

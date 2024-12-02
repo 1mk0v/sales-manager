@@ -26,6 +26,7 @@ app.include_router(auth_routers.router)
 @app.on_event("startup")
 async def startUpApp():
     generator = DBGenerator()
+    # await generator.dropTables()
     await generator.generateTables()
     await generator.generateTestUser()
     # await generator.generateUserAuth()

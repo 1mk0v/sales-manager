@@ -29,8 +29,8 @@ user_auth = (
 user_session = (
     """
         id SERIAL PRIMARY KEY,
-        session VARCHAR(50),
-        logined TIMESTAMP,
+        session VARCHAR(256),
+        logined TIMESTAMP DEFAULT now(),
         user_id INTEGER,
         is_active BOOLEAN DEFAULT TRUE,
         FOREIGN KEY (user_id) REFERENCES managers (id) ON DELETE CASCADE
