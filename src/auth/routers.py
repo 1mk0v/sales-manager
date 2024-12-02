@@ -3,7 +3,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from typing import Annotated
 from exceptions import BaseAPIException
 from models import Response
-from .manager import UserSessionsManager
+from .manager import Authentificator
 from .models import TokenResponse
 import logging
 
@@ -18,7 +18,7 @@ router = APIRouter(
 @router.post("/token", summary="GET token")
 async def getToken(data: Annotated[OAuth2PasswordRequestForm, Depends()]) -> TokenResponse | Response:
     try:
-        sessionManager = UserSessionsManager()
+        sessionManager = Authentificator()
         token = await sessionManager.getSessionForUser(login=data.username, password=data.password)
         return TokenResponse(data=token)
     except BaseAPIException as err:

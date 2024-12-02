@@ -29,4 +29,3 @@ async def startUpApp():
     # await generator.dropTables()
     await generator.generateTables()
     await generator.generateTestUser()
-    # await generator.generateUserAuth()
