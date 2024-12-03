@@ -16,16 +16,20 @@ class DBGenerator():
         }
     
     async def generateTables(self):
+        logger.info(f"Generating tables...")
         conn = await getConnection()
         for key in self.schema:
             try:
                 result = await conn.execute(f"""CREATE TABLE {key} ({self.schema[key]})""")
                 logger.debug(f"{result} {key}")
             except Exception as err:
-                logger.warn(err)
+                logger.warning(err)
+                logger.warning('Abort!')
         await conn.close()
+        logger.debug(f'Connection close')
     
     async def generateManager(self):
+        logger.info(f"Generating manager table...")
         conn = await getConnection()
         try:
             result = await conn.execute(
@@ -34,10 +38,12 @@ class DBGenerator():
             )
             logger.debug(f"{result}")
         except Exception as err:
-            logger.warn(err)
+            logger.warning(err)
+            logger.warning('Abort!')
         await conn.close()
     
     async def generateOffice():
+        logger.info(f"Generating office table...")
         conn = await getConnection()
         try:
             result = await conn.execute(
@@ -46,10 +52,12 @@ class DBGenerator():
             )
             logger.debug(f"{result}")
         except Exception as err:
-            logger.warn(err)
+            logger.warning(err)
+            logger.warning('Abort!')
         await conn.close()
 
     async def generateUserAuth(self):
+        logger.info(f"Generating user_auth table...")
         pswdManager = UsersPasswordsManager()
         conn = await getConnection()
         try:
@@ -59,10 +67,12 @@ class DBGenerator():
             )
             logger.debug(f"{result}")
         except Exception as err:
-            logger.warn(err)
+            logger.warning(err)
+            logger.warning('Abort!')
         await conn.close()
 
     async def generateTestUser(self):
+        logger.info(f"Generating test_user...")
         pswdManager = UsersPasswordsManager()
         conn = await getConnection()
         try:
@@ -81,12 +91,14 @@ class DBGenerator():
             )
             logger.debug("INSERT INTO user_auth")
         except Exception as err:
-            logger.warn(err)
+            logger.warning(err)
+            logger.warning('Abort!')
         await conn.close()
     
     async def dropTables(self):
+        logger.info(f'Droping all tables...')
         conn = await getConnection()
         for key in self.schema:
-                result = await conn.execute(f'''DROP TABLE {key} CASCADE''')
-                logger.debug(f"{result} {key}")
+            result = await conn.execute(f'''DROP TABLE {key} CASCADE''')
+            logger.debug(f"{result} {key}")
         await conn.close()

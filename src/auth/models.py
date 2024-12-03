@@ -8,3 +8,6 @@ class Token(BaseModel):
 
 class TokenResponse(Response):
     data:Token
+
+class LoginResponse(Response):
+    data:str
