@@ -43,4 +43,4 @@ async def startUpApp():
     generator = DBGenerator()
     # await generator.dropTables()
     await generator.generateTables()
-    await generator.generateTestUser()
+    # await generator.generateTestUser()

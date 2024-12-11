@@ -22,5 +22,8 @@ async def getInfoAboutMe(currentUser: Annotated[users.UserAuth, Depends(get_curr
         )
     )
 
-
+@router.get("/manager/dashboard", summary="Get dashboard info for manager")
+async def getDashboardInfo(currentUser: Annotated[users.UserAuth, Depends(get_current_active_user)]):
+    user = await currentUser.getUser()
+    return Response(data=(await user.getSoldProducts()))
 # @router.get("")

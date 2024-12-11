@@ -41,7 +41,7 @@ customers = (
     """
         id SERIAL PRIMARY KEY,
         name VARCHAR(50),
-        email VARCHAR(15),
+        email VARCHAR(50),
         dt_reg DATE,
         manag_id INTEGER,
         sex CHAR(1),

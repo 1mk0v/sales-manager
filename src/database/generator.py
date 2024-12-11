@@ -3,7 +3,7 @@ from auth.manager import UsersPasswordsManager
 from .schemas import (
     user_session, managers, offices, user_auth,
     customers, office_heads, products, reviews, 
-    sales
+    sales, plans
 )
 from . import getConnection
 
@@ -21,7 +21,8 @@ class DBGenerator():
             "office_heads": office_heads,
             "products": products,
             "reviews": reviews,
-            "sales": sales
+            "sales": sales, 
+            "plans": plans
         }
     
     async def generateTables(self):
