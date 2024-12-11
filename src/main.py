@@ -6,6 +6,7 @@ from fastapi import FastAPI, Request
 from starlette.middleware.sessions import SessionMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 from auth import routers as auth_routers
+from users import routers as users_routers
 from auth import config as auth_conf
 
 logger = logging.getLogger("uvicorn.error")
@@ -25,6 +26,7 @@ app.add_middleware(
 app.add_middleware(SessionMiddleware, secret_key=auth_conf.SECRET_KEY)
 
 app.include_router(auth_routers.router)
+app.include_router(users_routers.router)
 
 
 @app.middleware("http")

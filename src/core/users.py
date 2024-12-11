@@ -15,7 +15,7 @@ class User():
 
     def getInitials(self):
         logger.debug("Getting initials...")
-        return f"{self.surename} {self.name[0]}. {self.patronomic[0]}."
+        return f"{self.surename} {self.name[0]}.{self.patronomic[0]}."
     
     async def getHashedAuthInfo(self):
         logger.debug("Getting user authentification info...")
@@ -33,11 +33,16 @@ class UserAuth():
     def isSessionsEqual(self, session:str):
         return self.__session == session
     
+    async def getUser(self):
+        conn = await db.getConnection()
+        userResult = await conn.fetchrow('''SELECT * FROM managers where id = $1''', self.userId)
+        logger.debug(f"Get user by id = {self.userId}")
+        return User(
+            id=userResult["id"], name=userResult["name"], surename=userResult["surename"],
+            patronomic=userResult["patronomic"], role=userResult["role"], office_id=userResult["office_id"]
+        )
+        
     @property
     def getSession(self):
         logger.debug("Getting session...")
         return self.__session
-    # async def isUserActive(self):
-    #     conn = await db.getConnection()
-    #     tryL:
-    #     conn.fetchval()

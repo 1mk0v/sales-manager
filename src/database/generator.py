@@ -1,6 +1,10 @@
 import logging
 from auth.manager import UsersPasswordsManager
-from .schemas import user_session, managers, offices, user_auth
+from .schemas import (
+    user_session, managers, offices, user_auth,
+    customers, office_heads, products, reviews, 
+    sales
+)
 from . import getConnection
 
 logger = logging.getLogger('uvicorn.error')
@@ -12,7 +16,12 @@ class DBGenerator():
             "offices": offices,
             "managers": managers,
             "user_auth": user_auth,
-            "user_session": user_session
+            "user_session": user_session,
+            "customers": customers,
+            "office_heads": office_heads,
+            "products": products,
+            "reviews": reviews,
+            "sales": sales
         }
     
     async def generateTables(self):
