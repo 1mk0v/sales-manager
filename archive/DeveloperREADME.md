@@ -135,24 +135,83 @@ WHERE s.manag_id = 1;
 ```sql
 -- тут запрос пожалуйста
 -- категория + на какую сумму товара продали из данной категории
+ 
+SELECT
+p.category,
+SUM(s.amount) AS total_sales
+FROM
+products p
+JOIN
+sales ON p.id = s.prod_id
+GROUP BY
+p.category
+ORDER BY
+COUNT(s.prod_id)DESC
+LIMIT 1;
+ 
 ```
-
+ 
 ***ТОП 5 лучших продаваемых категорий***
 ```sql
 -- тут запрос пожалуйста
 -- категория + на какую сумму товара продали из данной категории
+ 
+SELECT
+p.category,
+SUM(s.amount) AS total_sales
+FROM
+products p
+JOIN
+sales ON p.id = s.prod_id
+GROUP BY
+p.category
+ORDER BY
+COUNT(s.prod_id)DESC
+LIMIT 5;
+ 
 ```
-
+ 
 ***ТОП 5 худших продаваемых категорий***
 ```sql
 -- тут запрос пожалуйста
 -- категория + на какую сумму товара продали из данной категории
+ 
+SELECT
+p.category,
+SUM(s.amount) AS total_sales
+FROM
+products p
+JOIN
+sales ON p.id = s.prod_id
+GROUP BY
+p.category
+ORDER BY
+COUNT(s.prod_id)ASC
+LIMIT 5;
+ 
 ```
-
+ 
 ***Таблица ПРОДУКТОВ***
 ```sql
 -- тут запрос пожалуйста
--- имя товара + количество на складе + месяц, в который было совершенны покупки данного товара + сумма проданных товаров в определенном месяце
+-- имя товара + ?количество на складе? + месяц, в который было совершенны покупки данного товара + сумма проданных товаров в определенном месяце
+ 
+SELECT
+p.name AS product_name,
+DATE_FORMAT(s.dt_rep, ‘%Y-%m’) AS sale_month,
+SUM(s.amount) AS total_sales
+FROM
+products p
+JOIN
+sales s ON p.id = s.prod_id
+ 
+*-- если нужен конкретный месяц
+*-- WHERE DATE_FORMAT(s.dt_rep, ‘%Y-%m’) = ‘год - месяц’
+ 
+GROUP BY ​
+p.name, sale_month
+ORDER BY
+sale_month, p.name
 ```
 
 
